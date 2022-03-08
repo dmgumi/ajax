@@ -6,10 +6,17 @@
 // si l'élément n'existe pas encore, je lui rattache
 // le gestionnaire d'évènements automatiquement à partir du moment où il va exister
 
+$("section").hide()
+
 $(document).on("click", "#liste-contacts", function (e) {
     e.preventDefault();
     liste();
 });
+
+$(document).on("click", "#nv-contact", function () {
+  $("section").hide()
+  $(".ajout-contact").show();
+})
 
 function liste() {
     request = $.ajax({
@@ -49,6 +56,8 @@ function liste() {
         html += `    </tbody>
                     </table>`;
         $(".liste").html(html);
+        $("section").hide();
+        $(".liste").show();
     });
 
     request.fail(function (http_error) {
