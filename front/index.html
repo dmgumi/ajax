@@ -32,7 +32,11 @@
                     <div class="sidebar-sticky pt-3 bg-dark text-light">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active text-light" href="#"> Tableau de bord <span class="sr-only">(current)</span> </a>
+                                <a class="nav-link active text-light" href="#" id="tableau">
+                                    <i class="far fa-window-restore"></i>
+                                    Tableau de bord
+                                    <span class="sr-only">(current)</span>
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="#" id="liste-contacts">
@@ -49,37 +53,92 @@
                         </ul>
                     </div>
                 </nav>
-                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 p-md-5">
+                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 p-md-3">
+                    <section class="tableau">
+                        
+                    </section>
+
                     <section class="liste"></section>
-                    <section class="ajout-contact col-md-6">
-                        <h2 class="mb-3">Ajout de contact</h2>
-                        <form action="#" method="post">
-                            <div class="form-group">
-                                <label for="nom">Nom :</label>
-                                <input type="text" class="form-control" name="nom" id="nom" />
-                            </div>
-                            <div class="form-group">
-                                <label for="prenom">Prénom :</label>
-                                <input type="text" class="form-control" name="prenom" id="prenom" />
-                            </div>
-                            <button type="submit" class="btn btn-primary ajout-contact">Ajouter</button>
-                        </form>
-                    </section>
-                    <section class="col-md-6 modif-contact">
-                        <h2 class="mb-3">Modfication de contact</h2>
-                        <form>
-                            <div class="form-group">
-                                <label for="nom">Nom :</label>
-                                <input type="text" class="form-control" name="nom" id="nom" />
-                            </div>
-                            <div class="form-group">
-                                <label for="prenom">Prénom :</label>
-                                <input type="text" class="form-control" name="prenom" id="prenom" />
-                            </div>
-                            <button type="submit" class="btn btn-info maj-contact" id="">Modifier</button>
-                            <button type="reset" class="btn btn-danger">Réinitialiser</button>
-                        </form>
-                    </section>
+                    <div class="d-flex justify-content-around container">
+                        <section class="jumbotron ajout-contact p-3 col-md-6 mx-3 my-0">
+                            <h2 class="mb-3">Ajout de contact</h2>
+                            <form action="#" method="post">
+                                <div class="form-group">
+                                    <label for="nom">Nom :</label>
+                                    <input type="text" class="form-control" name="nom" id="nom" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="prenom">Prénom :</label>
+                                    <input type="text" class="form-control" name="prenom" id="prenom" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom">Adresse :</label>
+                                    <input type="text" class="form-control" name="address" id="address" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom">Email :</label>
+                                    <input type="text" class="form-control" name="email" id="email" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom">Téléphone :</label>
+                                    <input type="tel" class="form-control" name="phone" id="phone" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="my-input">Catégorie</label>
+                                    <select class="form-control" name="category" id="category">
+                                        <option>Famille</option>
+                                        <option>Amis</option>
+                                        <option>Travail</option>
+                                        <option>Autres</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-success w-25 ajout-contact">Ajouter</button>
+                                <button type="reset" class="btn btn-danger w-25">Réinitialiser</button>
+                            </form>
+                        </section>
+                        <section class="jumbotron ajout-contact p-3 col-md-6 mx-3 my-0"> <p>test</p><br /> </section>
+                    </div>
+                    <div class="d-flex justify-content-around container">
+                        <section class="jumbotron col-md-6 mx-3 my-0 modif-contact p-3">
+                            <h2 class="mb-3">Modification de contact</h2>
+                            <form>
+                                <div class="form-group">
+                                    <label for="nom">Nom :</label>
+                                    <input type="text" class="form-control" name="nom" id="nom" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="prenom">Prénom :</label>
+                                    <input type="text" class="form-control" name="prenom" id="prenom" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom">Adresse :</label>
+                                    <input type="text" class="form-control" name="address" id="address" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom">Email :</label>
+                                    <input type="text" class="form-control" name="email" id="email" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom">Téléphone :</label>
+                                    <input type="tel" class="form-control" name="phone" id="phone" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="my-input">Catégorie</label>
+                                    <select class="form-control" name="category" id="category">
+                                        <option>Famille</option>
+                                        <option>Amis</option>
+                                        <option>Travail</option>
+                                        <option>Autres</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-info w-25 maj-contact" id="">Modifier</button>
+                                <button type="reset" class="btn btn-danger w-25">Réinitialiser</button>
+                            </form>
+                        </section>
+                        <section class="jumbotron col-md-6 mx-3 my-0 modif-contact p-3">
+                            <p>test</p>
+                        </section>
+                    </div>
                 </main>
             </div>
         </div>
