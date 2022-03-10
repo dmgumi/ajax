@@ -13,6 +13,8 @@
 
 $("section").hide();
 
+$("section #tableau").show();
+
 $(document).on("click", "#liste-contacts", function (e) {
     e.preventDefault();
     liste();
@@ -60,20 +62,22 @@ function liste() {
         let html = "";
         if (response.length !== 0) {
             html += ` 
-			<h1 id="haut">Liste des contacts </h1>
+			<span id="haut"></span>
+			<h1 class="font-weight-bold">Liste des contacts </h1>
 			<table class="table table-striped">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">Nom</th>
-					<th scope="col">Prénom</th>
-					<th scope="col">Adresse</th>
-					<th scope="col">Email</th>
-					<th scope="col">Téléphone</th>
-					<th scope="col" class="text-center">Catégorie</th>
-					<th scope="col"></th>
-				</tr>
-			</thead>
-			<tbody>`;
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Nom</th>
+						<th scope="col">Prénom</th>
+						<th scope="col">Adresse</th>
+						<th scope="col">Email</th>
+						<th scope="col">Téléphone</th>
+						<th scope="col" class="text-center">Catégorie</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					`;
             response.map((contact) => {
                 html += `
 			<tr>
@@ -83,10 +87,10 @@ function liste() {
 					<td>${contact.email}</td>
 					<td>${contact.telephone}</td>
 					<td>
-						<span class="badge badge-dark w-100 p-3">${contact.categorie}</span>
+						<span class="badge badge-success w-100 p-3">${contact.categorie}</span>
 					</td>
 					<td>
-						<button type="button" class="btn btn-info modif-contact" id="${contact.id}"><i class="fas fa-edit mr-1"></i></button>
+						<button type="button" class="btn btn-primary modif-contact" id="${contact.id}"><i class="fas fa-edit mr-1"></i></button>
 
 						<button type="button" class="btn btn-danger supp-contact" id="${contact.id}"><i class="fas fa-trash-alt mr-1"></i></button>
 										
@@ -95,10 +99,10 @@ function liste() {
 			`;
             });
 
-            html += `	</tbody>
-					</table>
-					<a href="#haut" class="btn btn-outline-dark" ><i class="fas fa-angle-double-up"></i> Retour en haut</a>
-					`;
+            html += `	
+						</tbody>
+						<a href="#haut" id="retour" class="btn btn-success" ><i class="fas fa-angle-double-up"></i> Retour en haut</a>
+					</table>`;
         } else {
             html = `
 			<div class="alert alert-danger" role="alert">
@@ -226,50 +230,76 @@ function tableau(){
 
 	request.done(function(response){
 
-		// response.map(function(contact){
-		// 	contact.length()
-		// })
+		let famille = 0
+		let amis = 0
+		let travail = 0
+		let autres = 0
+
 		response.map((contact) => {
 			if (contact.categorie === "Famille") {
-				famille = contact.categorie
+				famille += 1
 			}
 			if (contact.categorie === "Amis") {
-				amis = contact.categorie
+				amis += 1
 			}
 			if (contact.categorie === "Travail") {
-				travail = contact.categorie
+				travail += 1
 			}
 			if (contact.categorie === "Autres") {
-				autres = contact.categorie
+				autres += 1
 			}
 		})
-		
-		html = `<div class="d-flex justify-content-around container">
-		<div class="jumbotron d-flex flex-column justify-content-between align-items-center col-md-4 p-3 mx-3 my-0">
-			<div class="d-flex flex-column justify-content-between align-items-center col-md-4 p-3 mx-3 my-0">
-				<div class="card" style="width: 18rem">
-					<div class="card-body">
-						<p class="card-text"
-							>Nombre de catégories: 
-							<span class="badge badge-dark">${$("#category").children().length}</span></p
-						>
-					</div>
-				</div>
-				<div class="card" style="width: 18rem">
-					<div class="card-body">
-						<p class="card-text"
-							>Nombre de contacts: 
-							<span class="badge badge-dark">${response.length}</span></p
-						>
-					</div>
-				</div>
-			</div>
-	
-			<div> </div>
-		</div>
-	
-		<div class="jumbotron col-md-8 p-3 mx-3 my-0"> ${famille.length} </div>
-	</div>`
+
+		html = `
+<div class="container row mx-auto">
+
+    <div class="col-md-4 p-3">
+        <div class="jumbotron p-4">
+            <div class="p-3">
+                <h5>
+					Nombre de catégories: 
+					<span class="badge badge-success col-md-2 ml-auto">${$("#category").children().length}</span>
+				</h5>
+            </div>
+            <div class="p-3">
+                <h5 class="card-text">
+					Nombre de contacts: 
+					<span class="badge badge-success col-md-2 ml-auto">${response.length}</span>
+				</h5>
+            </div>
+        </div>
+        <div class="jumbotron">
+			camembert
+        </div>
+    </div>
+
+
+    <div class="jumbotron col-md-8">
+        <h2 class="font-weight-bold p-3">Nombre de contacts | catégorie</h2>
+        <h4><span class="col-md-8">Contacts dans la catégorie </span>
+            <span class="btn btn-secondary col-md-2">Famille</span>
+			<span class="col-md-1"> : </span>
+            <span class="badge badge-success col-md-1"> ${famille}</span>
+        </h4>
+        <h4><span class="col-md-8">Contacts dans la catégorie </span>
+            <span class="btn btn-secondary col-md-2">Amis</span>
+			<span class="col-md-1"> : </span>
+            <span class="badge badge-success col-md-1">${amis}</span>
+        </h4>
+        <h4><span class="col-md-8">Contacts dans la catégorie </span>
+            <span class="btn btn-secondary col-md-2">Travail</span>
+			<span class="col-md-1"> : </span>
+            <span class="badge badge-success col-md-1">${travail}</span>
+        </h4>
+        <h4><span class="col-md-8">Contacts dans la catégorie </span>
+            <span class="btn btn-secondary col-md-2">Autres</span>
+			<span class="col-md-1"> : </span>
+            <span class="badge badge-success col-md-1">${autres}</span>
+        </h4>
+    </div>
+
+</div>
+		`
 
 		$(".tableau").html(html)
 		$("section").hide()
@@ -284,19 +314,3 @@ function tableau(){
     });
 
 }
-
-
-response.map((contact) => {
-	if (contact.categorie === "Famille") {
-		famille = contact.categorie
-	}
-	if (contact.categorie === "Amis") {
-		amis = contact.categorie
-	}
-	if (contact.categorie === "Travail") {
-		travail = contact.categorie
-	}
-	if (contact.categorie === "Autres") {
-		autres = contact.categorie
-	}
-})
