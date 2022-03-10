@@ -47,9 +47,9 @@ $(document).on("click", ".supp-contact", function () {
 });
 
 $(document).on("click", "#tableau", function (e) {
-	e.preventDefault();
-	tableau();
-})
+    e.preventDefault();
+    tableau();
+});
 
 function liste() {
     let request = $.ajax({
@@ -220,37 +220,35 @@ function suppContact(id) {
     });
 }
 
-function tableau(){
-
-	let request = $.ajax({
+function tableau() {
+    let request = $.ajax({
         type: "GET",
         url: "http://localhost:3000/contacts",
         dataType: "json",
     });
 
-	request.done(function(response){
+    request.done(function (response) {
+        let famille = 0;
+        let amis = 0;
+        let travail = 0;
+        let autres = 0;
 
-		let famille = 0
-		let amis = 0
-		let travail = 0
-		let autres = 0
+        response.map((contact) => {
+            if (contact.categorie === "Famille") {
+                famille += 1;
+            }
+            if (contact.categorie === "Amis") {
+                amis += 1;
+            }
+            if (contact.categorie === "Travail") {
+                travail += 1;
+            }
+            if (contact.categorie === "Autres") {
+                autres += 1;
+            }
+        });
 
-		response.map((contact) => {
-			if (contact.categorie === "Famille") {
-				famille += 1
-			}
-			if (contact.categorie === "Amis") {
-				amis += 1
-			}
-			if (contact.categorie === "Travail") {
-				travail += 1
-			}
-			if (contact.categorie === "Autres") {
-				autres += 1
-			}
-		})
-
-		html = `
+        html = `
 <div class="container row mx-auto">
 
     <div class="col-md-4 p-3">
@@ -269,7 +267,7 @@ function tableau(){
             </div>
         </div>
         <div class="jumbotron">
-			camembert
+			${config}
         </div>
     </div>
 
@@ -299,18 +297,41 @@ function tableau(){
     </div>
 
 </div>
-		`
+		`;
+		
+        $(".tableau").html(html);
+        $("section").hide();
+        $(".tableau").show();
+    });
 
-		$(".tableau").html(html)
-		$("section").hide()
-		$(".tableau").show()
-	})
-
-	request.fail(function (http_error) {
+    request.fail(function (http_error) {
         let server_msg = http_error.responseText;
         let code = http_error.status;
         let code_label = http_error.statusText;
         alert("Erreur " + code + " (" + code_label + ") : " + server_msg);
     });
-
 }
+
+// $.getJSON( "http://localhost:3000/contacts", function(data) {
+
+// }
+// CAMEMBERT
+
+const graph = document.getElementById('graph').getContext('2d');
+    let myChart = new Chart(graph, {
+        type: 'pie',
+        data: {
+            labels: ['Objet1', 'Objet2', 'Objet3'],
+            datasets: [
+                {
+                    label: "Categories",
+                    data: [10, 20, 30],
+                    backgroundColor: [
+                        "red",
+                        "blue",
+                        "yellow"
+                    ]
+                }
+            ]
+        },
+    });
