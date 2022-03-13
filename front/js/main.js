@@ -23,6 +23,7 @@ $(document).on("click", "#liste-contacts", function (e) {
 $(document).on("click", "#nv-contact", function (e) {
     e.preventDefault();
     $("section").hide();
+    $(".tableau").hide();
     $(".ajout-contact").show();
 });
 
@@ -48,7 +49,8 @@ $(document).on("click", ".supp-contact", function () {
 
 $(document).on("click", "#tableau", function (e) {
     e.preventDefault();
-    tableau();
+    $("section").hide();
+    $(".tableau").show();
 });
 
 function liste() {
@@ -110,6 +112,7 @@ function liste() {
 			</div>`;
         }
         $(".liste").html(html);
+        $(".tableau").hide();
         $("section").hide();
         $(".liste").show();
     });
@@ -220,118 +223,59 @@ function suppContact(id) {
     });
 }
 
-function tableau() {
-    let request = $.ajax({
-        type: "GET",
-        url: "http://localhost:3000/contacts",
-        dataType: "json",
+let request = $.ajax({
+    type: "GET",
+    url: "http://localhost:3000/contacts",
+    dataType: "json",
+});
+
+request.done(function (response) {
+    let famille = 0;
+    let amis = 0;
+    let travail = 0;
+    let autres = 0;
+
+    response.map((contact) => {
+        if (contact.categorie === "Famille") {
+            famille += 1;
+        }
+        if (contact.categorie === "Amis") {
+            amis += 1;
+        }
+        if (contact.categorie === "Travail") {
+            travail += 1;
+        }
+        if (contact.categorie === "Autres") {
+            autres += 1;
+        }
     });
 
-    request.done(function (response) {
-        let famille = 0;
-        let amis = 0;
-        let travail = 0;
-        let autres = 0;
+    $("#nb-categories").html($("#category").children().length);
+    $("#nb-contacts").html(response.length);
+    $("#famille").html(famille);
+    $("#amis").html(amis);
+    $("#travail").html(travail);
+    $("#autres").html(autres);
 
-        response.map((contact) => {
-            if (contact.categorie === "Famille") {
-                famille += 1;
-            }
-            if (contact.categorie === "Amis") {
-                amis += 1;
-            }
-            if (contact.categorie === "Travail") {
-                travail += 1;
-            }
-            if (contact.categorie === "Autres") {
-                autres += 1;
-            }
-        });
-
-        html = `
-<div class="container row mx-auto">
-
-    <div class="col-md-4 p-3">
-        <div class="jumbotron p-4">
-            <div class="p-3">
-                <h5>
-					Nombre de catégories: 
-					<span class="badge badge-success col-md-2 ml-auto">${$("#category").children().length}</span>
-				</h5>
-            </div>
-            <div class="p-3">
-                <h5 class="card-text">
-					Nombre de contacts: 
-					<span class="badge badge-success col-md-2 ml-auto">${response.length}</span>
-				</h5>
-            </div>
-        </div>
-        <div class="jumbotron">
-			${config}
-        </div>
-    </div>
-
-
-    <div class="jumbotron col-md-8">
-        <h2 class="font-weight-bold p-3">Nombre de contacts | catégorie</h2>
-        <h4><span class="col-md-8">Contacts dans la catégorie </span>
-            <span class="btn btn-secondary col-md-2">Famille</span>
-			<span class="col-md-1"> : </span>
-            <span class="badge badge-success col-md-1"> ${famille}</span>
-        </h4>
-        <h4><span class="col-md-8">Contacts dans la catégorie </span>
-            <span class="btn btn-secondary col-md-2">Amis</span>
-			<span class="col-md-1"> : </span>
-            <span class="badge badge-success col-md-1">${amis}</span>
-        </h4>
-        <h4><span class="col-md-8">Contacts dans la catégorie </span>
-            <span class="btn btn-secondary col-md-2">Travail</span>
-			<span class="col-md-1"> : </span>
-            <span class="badge badge-success col-md-1">${travail}</span>
-        </h4>
-        <h4><span class="col-md-8">Contacts dans la catégorie </span>
-            <span class="btn btn-secondary col-md-2">Autres</span>
-			<span class="col-md-1"> : </span>
-            <span class="badge badge-success col-md-1">${autres}</span>
-        </h4>
-    </div>
-
-</div>
-		`;
-		
-        $(".tableau").html(html);
-        $("section").hide();
-        $(".tableau").show();
-    });
-
-    request.fail(function (http_error) {
-        let server_msg = http_error.responseText;
-        let code = http_error.status;
-        let code_label = http_error.statusText;
-        alert("Erreur " + code + " (" + code_label + ") : " + server_msg);
-    });
-}
-
-// $.getJSON( "http://localhost:3000/contacts", function(data) {
-
-// }
-// CAMEMBERT
-
-const graph = document.getElementById('graph').getContext('2d');
-    let myChart = new Chart(graph, {
-        type: 'pie',
+    const graph = document.getElementById("graph").getContext("2d");
+    myChart = new Chart(graph, {
+        type: "pie",
         data: {
-            labels: ['Objet1', 'Objet2', 'Objet3'],
+            labels: ["Famille", "Amis", "Travail", "Autres"],
             datasets: [
                 {
-                    label: "Categories",
-                    data: [10, 20, 30],
-                    backgroundColor: [
-                        "red",
-                        "blue",
-                        "yellow"
-                    ]
-                }
-            ]
+                    label: "Catégories",
+                    data: [famille, amis, travail, autres],
+                    backgroundColor: ["#4EB712", "#4A8229", "#5B7F19", "#83b824"],
+                },
+            ],
         },
     });
+});
+
+request.fail(function (http_error) {
+    let server_msg = http_error.responseText;
+    let code = http_error.status;
+    let code_label = http_error.statusText;
+    alert("Erreur " + code + " (" + code_label + ") : " + server_msg);
+});

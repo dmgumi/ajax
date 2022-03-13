@@ -1,15 +1,6 @@
 {
   "contacts": [
     {
-      "nom": "rejuza@mailinator.com",
-      "prenom": "Corrupti possimus ",
-      "adresse": "Est beatae aliquip c",
-      "email": "bipo@mailinator.com",
-      "telephone": "+1 (585) 947-3954",
-      "categorie": "Autres",
-      "id": "1646907196077"
-    },
-    {
       "id": "1646907203608",
       "nom": "nugojyri@mailinator.com",
       "prenom": "Ut occaecat mollitia",
@@ -116,6 +107,24 @@
       "email": "jizujop@mailinator.com",
       "telephone": "+1 (907) 133-2862",
       "categorie": "Amis"
+    },
+    {
+      "id": "1646990389488",
+      "nom": "hacyhaxifu@mailinator.com",
+      "prenom": "Adipisci animi unde",
+      "adresse": "Commodi ullamco nequ",
+      "email": "nyhybene@mailinator.com",
+      "telephone": "+1 (739) 976-1763",
+      "categorie": "Amis"
+    },
+    {
+      "id": "1647185212787",
+      "nom": "jojaguh@mailinator.com",
+      "prenom": "Et sint ducimus nat",
+      "adresse": "Et culpa et aut odio",
+      "email": "syju@mailinator.com",
+      "telephone": "+1 (211) 217-2664",
+      "categorie": "Travail"
     }
   ]
 }

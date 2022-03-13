@@ -62,13 +62,61 @@
                     </div>
                 </nav>
                 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 p-md-3">
-                    <section class="tableau"> </section>
-
-
-                    <canvas id="graph"></canvas>
-
+                    <div class="tableau">
+                        <div class="container row mx-auto">
+                            <div class="col-md-4 p-3">
+                                <div class="jumbotron p-4">
+                                    <div class="p-3">
+                                        <h5>
+                                            Nombre de catégories:
+                                            <span id="nb-categories" class="badge badge-success col-md-2 ml-auto">${$("#category").children().length}</span>
+                                        </h5>
+                                    </div>
+                                    <div class="p-3">
+                                        <h5 class="card-text">
+                                            Nombre de contacts:
+                                            <span id="nb-contacts" class="badge badge-success col-md-2 ml-auto">${response.length}</span>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div class="jumbotron p-3">
+                                    <span class="chart-container m-auto" style="height: 10vh; width: 20vw">
+                                        <canvas id="graph"></canvas>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="jumbotron col-md-8">
+                                <h2 class="font-weight-bold p-3">Nombre de contacts | catégorie</h2>
+                                <h4
+                                    ><span class="col-md-8">Contacts dans la catégorie </span>
+                                    <span class="btn btn-secondary col-md-2">Famille</span>
+                                    <span class="col-md-1"> : </span>
+                                    <span id="famille" class="badge badge-success col-md-1"> ${famille}</span>
+                                </h4>
+                                <h4
+                                    ><span class="col-md-8">Contacts dans la catégorie </span>
+                                    <span class="btn btn-secondary col-md-2">Amis</span>
+                                    <span class="col-md-1"> : </span>
+                                    <span id="amis" class="badge badge-success col-md-1">${amis}</span>
+                                </h4>
+                                <h4
+                                    ><span class="col-md-8">Contacts dans la catégorie </span>
+                                    <span class="btn btn-secondary col-md-2">Travail</span>
+                                    <span class="col-md-1"> : </span>
+                                    <span id="travail" class="badge badge-success col-md-1">${travail}</span>
+                                </h4>
+                                <h4
+                                    ><span class="col-md-8">Contacts dans la catégorie </span>
+                                    <span class="btn btn-secondary col-md-2">Autres</span>
+                                    <span class="col-md-1"> : </span>
+                                    <span id="autres" class="badge badge-success col-md-1">${autres}</span>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
 
                     <section class="liste"></section>
+
                     <div class="d-flex justify-content-around container">
                         <section class="jumbotron ajout-contact p-3 col-md-6 mx-3 my-0">
                             <h2 class="font-weight-bold mb-3">Ajout de contact</h2>
@@ -170,9 +218,9 @@
         </div>
 
         <script src="js/jquery.min.js"></script>
+        <script src="../node_modules/chart.js/dist/chart.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/all.min.js"></script>
-        <script src="../node_modules/chart.js/dist/chart.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
